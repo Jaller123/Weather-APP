@@ -38,5 +38,19 @@
             </div>
         </div>
    </div> 
+   <script>
+
+    const apiKey = "4671be16cf582455051ae934bf0bf3f7"; //API Key//
+    const apiURL= "https://api.openweathermap.org/data/2.5/weather?&units=metric&q=stockholm"; //The API URL//
+
+    async function checkWeather()
+    {
+        let response = await fetch(apiURL + `&appid=${apiKey}`)
+        let data = await response.json();
+
+        console.log(data);
+    }
+    checkWeather();
+   </script>
 </body>
 </html>
