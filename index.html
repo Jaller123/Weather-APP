@@ -16,7 +16,7 @@
     </div>
 
         <div class="weather">
-            <img src="images/rain.png"class="weather-icon">
+            <img src=""class="weather-icon">
             <h1 class="temperature"></h1>
             <h2 class="city">Enter City Name</h2>
             <div class="details">
@@ -43,9 +43,10 @@
     const apiKey = "4671be16cf582455051ae934bf0bf3f7"; //API Key//
     const apiURL= "https://api.openweathermap.org/data/2.5/weather?&units=metric&q="; //The API URL//
 
+    //This passes the data to the input field and then the button
     let searchBox = document.querySelector(".search input");
     let searchBtn = document.querySelector(".search button");
-
+    let weatherIcon = document.querySelector(".weather-icon");
     async function checkWeather(city)
     {
         //The API Fetches the URL and the key to display the information about the weather//
@@ -60,9 +61,50 @@
         document.querySelector(".temperature").innerHTML = Math.round(data.main.temp) + "°C";
         document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
         document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
+
+        /*This code checks the array of the "weather" which is 0 and according to the console, whether the condition is
+        snowy, clear or rainy will change the image of the weather icon as well as changing the background color*/
+        if (data.weather[0].main == "Snow")
+        {
+            weatherIcon.src = "images/snow.png"
+            document.querySelector(".card").style.background = "linear-gradient(135deg, #45488C, #D7D8E6)";
+        }
+        else if (data.weather[0].main == "Clear")
+        {
+            weatherIcon.src = "images/clear.png"
+        }
+        else if (data.weather[0].main == "Rain")
+        {
+            weatherIcon.src = "images/rain.png"
+            document.querySelector(".card").style.background = "linear-gradient(135deg, #95EBFF, #D7D8E6)";
+        }
+        else if (data.weather[0].main == "Drizzle")
+        {
+            weatherIcon.src = "images/drizzle.png"
+            document.querySelector(".card").style.background = "linear-gradient(135deg, #7DCBDD, #D7D8E6)";
+        }
+        else if (data.weather[0].main == "Mist")
+        {
+            weatherIcon.src = "images/mist.png"
+            document.querySelector(".card").style.background = "linear-gradient(135deg, #A3A3A3, #D7D8E6)";
+        }
+
+        else if (data.weather[0].main == "Clouds")
+        {
+            weatherIcon.src = "images/clouds.png"
+            document.querySelector(".card").style.background = "linear-gradient(135deg, #008AFF, #D7D8E6)";
+        }
+
+        else 
+        {
+        // Resets background color if the weather condition is none of the above
+        document.querySelector(".card").style.background = "linear-gradient(135deg, #53E5FF, #C9F7FF)";
+        }
        
 
     }
+    /*Whenever you click the search button, the city name is passed
+    into the checkWeather function which updates the data of the city*/
     searchBtn.addEventListener("click", () =>{ checkWeather(searchBox.value);})
 
 

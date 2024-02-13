@@ -15,7 +15,7 @@ background: #222;
 {
     width: 90%;
     max-width: 470px;
-    background: linear-gradient(135deg, #0498fa, #5b548a);
+    background: linear-gradient(135deg, hsl(204, 97%, 50%), #5b548a);
     color: #fff;
     margin: 100px auto 0;
     border-radius: 20px;
