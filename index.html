@@ -17,21 +17,21 @@
 
         <div class="weather">
             <img src="images/rain.png"class="weather-icon">
-            <h1 class="temperature">1°C</h1>
-            <h2 class="city">Stockholm</h2>
+            <h1 class="temperature"></h1>
+            <h2 class="city">Enter City Name</h2>
             <div class="details">
 
                 <div class="column">
                     <img src="images/humidity.png">
                     <div>
-                        <p class="humidity">50%</p>
+                        <p class="humidity">%</p>
                         <p>Humidity</p>
                     </div>
                 </div>
                 <div class="column">
                     <img src="images/wind.png">
                     <div>
-                        <p class="wind">15 km/h</p>
+                        <p class="wind"></p>
                         <p>Wind Speed</p>
                     </div>
                 </div>
@@ -41,16 +41,31 @@
    <script>
 
     const apiKey = "4671be16cf582455051ae934bf0bf3f7"; //API Key//
-    const apiURL= "https://api.openweathermap.org/data/2.5/weather?&units=metric&q=stockholm"; //The API URL//
+    const apiURL= "https://api.openweathermap.org/data/2.5/weather?&units=metric&q="; //The API URL//
 
-    async function checkWeather()
+    let searchBox = document.querySelector(".search input");
+    let searchBtn = document.querySelector(".search button");
+
+    async function checkWeather(city)
     {
-        let response = await fetch(apiURL + `&appid=${apiKey}`)
+        //The API Fetches the URL and the key to display the information about the weather//
+        let response = await fetch(apiURL + city + `&appid=${apiKey}`)
         let data = await response.json();
 
         console.log(data);
+
+        //The queryselector selects the class name "City" and innerHTML updates the HTML of the City name according to the console
+        document.querySelector(".city").innerHTML = data.name;
+        //The rest does the same thing as the previous code but updates each data (Temp, humidity, wind and so on)
+        document.querySelector(".temperature").innerHTML = Math.round(data.main.temp) + "°C";
+        document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+        document.querySelector(".wind").innerHTML = data.wind.speed + " km/h";
+       
+
     }
-    checkWeather();
+    searchBtn.addEventListener("click", () =>{ checkWeather(searchBox.value);})
+
+
    </script>
 </body>
 </html>
