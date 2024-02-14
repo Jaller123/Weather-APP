@@ -15,6 +15,10 @@
         <button><img src= "images/icons8-search-50.png"> </button>
     </div>
 
+    <div class = "error">
+        <p>Invalid City Name</p>
+    </div>
+
         <div class="weather">
             <img src=""class="weather-icon">
             <h1 class="temperature"></h1>
@@ -51,7 +55,18 @@
     {
         //The API Fetches the URL and the key to display the information about the weather//
         let response = await fetch(apiURL + city + `&appid=${apiKey}`)
-        let data = await response.json();
+
+        if(response.status == 404)
+        {
+            window.alert("The City name was invalid, please check the spelling and try again.")
+            document.querySelector(".error").style.display = "block";
+            document.querySelector(".weather").style.display = "none";
+           
+        }
+
+        else
+        {
+            let data = await response.json();
 
         console.log(data);
 
@@ -101,6 +116,13 @@
         document.querySelector(".card").style.background = "linear-gradient(135deg, #53E5FF, #C9F7FF)";
         }
        
+        // Displays the weather when searching for a city
+        document.querySelector(".weather").style.display = "block";
+        document.querySelector(".error").style.display = "none";
+        }
+
+        
+
 
     }
     /*Whenever you click the search button, the city name is passed
